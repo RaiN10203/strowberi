@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note Taker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="logo.jpg" type="image/x-icon" style="width: 100%;">
+</head>
+<body>
+    <div class="create">
+        <form id="note-form">
+            <h1>Strowberi Notes</h1>
+            <label for="note-title">Note Title:</label>
+            <input type="text" id="note-title" name="note-title" required>
+            <br>
+            <label for="note-text">Note Text:</label>
+            <textarea id="note-text" name="note-text" required></textarea>
+            <br>
+            <button type="submit">Save Note</button>
+        </form>
+        <ul id="note-list"></ul>
+        <li>
+            <strong></strong>
+            <p></p>
+        </li>
+    </div>
+
+    <script>
+        let notes = [];
+
+        const addNotes = (ev) => {
+            ev.preventDefault();
+            let note = {
+                title: document.getElementById('note-title').value,
+                text: document.getElementById('note-text').value
+            }
+            notes.push(note);
+            document.querySelector('form').reset();
+
+            // Display notes in the ul element
+            displayNotes();
+        }
+
+        const displayNotes = () => {
+            const noteList = document.getElementById('note-list');
+            noteList.innerHTML = ''; // Clear existing list
+
+            for (let i = 0; i < notes.length; i++) {
+            const note = notes[i];
+            const li = document.createElement('li');
+            const title = document.createElement('strong');
+            title.textContent = `Title: ${note.title}`;
+            li.appendChild(title);
+            const text = document.createElement('p');
+            text.textContent = ` ${note.text}`;
+            li.appendChild(text);
+            noteList.appendChild(li);
+    }
+}
+
+        document.getElementById('note-form').addEventListener('submit', addNotes);
+    </script>
+</body>
+</html>
